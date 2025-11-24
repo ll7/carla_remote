@@ -11,18 +11,18 @@ description: "Task list for SSH-Based CARLA Remote Server Startup"
 
 ## Phase 1: Setup (Shared Infrastructure)
 
-- [ ] T001 Create project structure for src/cli, src/services, src/models, src/logging, tests/unit, tests/integration, tests/contract directories.
-- [ ] T002 Add runtime and test dependencies (paramiko, pytest, typing extensions) in pyproject.toml and refresh uv.lock.
-- [ ] T003 Update .gitignore to cover Python artifacts (.venv/, __pycache__/, *.pyc, dist/) in .gitignore.
+- [X] T001 Create project structure for src/cli, src/services, src/models, src/logging, tests/unit, tests/integration, tests/contract directories.
+- [X] T002 Add runtime and test dependencies (paramiko, pytest, typing extensions) in pyproject.toml and refresh uv.lock.
+- [X] T003 Update .gitignore to cover Python artifacts (.venv/, __pycache__/, *.pyc, dist/) in .gitignore.
 
 ---
 
 ## Phase 2: Foundational (Blocking Prerequisites)
 
-- [ ] T004 Implement structured JSON logging helpers with timestamp/level/component fields in src/logging/structured.py.
-- [ ] T005 Define dataclasses for SSHConnection, CarlaInstallState, CarlaServerProcess, PortMapping, ExecutionLogEntry in src/models/entities.py.
-- [ ] T006 Implement local port probing and remap suggestion utilities for CARLA ports 2000-2002 in src/services/ports.py.
-- [ ] T007 Implement SSH client abstraction using Paramiko for commands and subprocess ssh for tunnels with cleanup handling in src/services/ssh_client.py.
+- [X] T004 Implement structured JSON logging helpers with timestamp/level/component fields in src/logging/structured.py.
+- [X] T005 Define dataclasses for SSHConnection, CarlaInstallState, CarlaServerProcess, PortMapping, ExecutionLogEntry in src/models/entities.py.
+- [X] T006 Implement local port probing and remap suggestion utilities for CARLA ports 2000-2002 in src/services/ports.py.
+- [X] T007 Implement SSH client abstraction using Paramiko for commands and subprocess ssh for tunnels with cleanup handling in src/services/ssh_client.py.
 
 ---
 
@@ -33,17 +33,17 @@ Independent Test: Run CLI against localhost loopback; verify prompts, port forwa
 
 ### Tests for User Story 1
 
-- [ ] T008 [P] [US1] Write contract test for CLI prompt sequence and responses per contracts/cli-contract.json in tests/contract/test_cli_contract.py.
-- [ ] T009 [P] [US1] Write unit tests for port probing/remap decision logic in tests/unit/test_ports.py.
-- [ ] T010 [P] [US1] Write unit tests for SSH client connect/command/tunnel error handling in tests/unit/test_ssh_client.py.
+- [X] T008 [P] [US1] Write contract test for CLI prompt sequence and responses per contracts/cli-contract.json in tests/contract/test_cli_contract.py.
+- [X] T009 [P] [US1] Write unit tests for port probing/remap decision logic in tests/unit/test_ports.py.
+- [X] T010 [P] [US1] Write unit tests for SSH client connect/command/tunnel error handling in tests/unit/test_ssh_client.py.
 
 ### Implementation for User Story 1
 
-- [ ] T011 [US1] Implement interactive CLI flow (host/user prompts, no persistence, Ctrl+C cleanup) in src/cli/remote_carla_start.py.
-- [ ] T012 [US1] Integrate port conflict detection and remap prompts using ports service in src/cli/remote_carla_start.py.
-- [ ] T013 [US1] Implement CARLA process detection/startup with tunnel creation and remote health verification in src/services/carla_start.py.
-- [ ] T014 [US1] Add structured logging and error code mapping for SSH/connect/start outcomes in src/cli/remote_carla_start.py.
-- [ ] T015 [US1] Add integration test simulating remote startup via localhost and verifying forwarded ports in tests/integration/test_end_to_end_local_loopback.py.
+- [X] T011 [US1] Implement interactive CLI flow (host/user prompts, no persistence, Ctrl+C cleanup) in src/cli/remote_carla_start.py.
+- [X] T012 [US1] Integrate port conflict detection and remap prompts using ports service in src/cli/remote_carla_start.py.
+- [X] T013 [US1] Implement CARLA process detection/startup with tunnel creation and remote health verification in src/services/carla_start.py.
+- [X] T014 [US1] Add structured logging and error code mapping for SSH/connect/start outcomes in src/cli/remote_carla_start.py.
+- [X] T015 [US1] Add integration test simulating remote startup via localhost and verifying forwarded ports in tests/integration/test_end_to_end_local_loopback.py.
 
 Checkpoint: User Story 1 independently delivers remote startup with port forwarding and logging.
 
@@ -56,13 +56,13 @@ Independent Test: Point CLI at a host without CARLA (simulated via mocks) and ve
 
 ### Tests for User Story 2
 
-- [ ] T016 [P] [US2] Write unit tests for installation detection/version selection and path validation in tests/unit/test_carla_detect.py.
+- [X] T016 [P] [US2] Write unit tests for installation detection/version selection and path validation in tests/unit/test_carla_detect.py.
 
 ### Implementation for User Story 2
 
-- [ ] T017 [US2] Implement CARLA installation detection with multiple-version handling and UNKNOWN fallback in src/services/carla_detect.py.
-- [ ] T018 [US2] Add interactive download/install flow with disk space check and retry guidance in src/services/carla_detect.py.
-- [ ] T019 [US2] Wire CLI to carla_detect results (prompt install, pass install path into startup) in src/cli/remote_carla_start.py.
+- [X] T017 [US2] Implement CARLA installation detection with multiple-version handling and UNKNOWN fallback in src/services/carla_detect.py.
+- [X] T018 [US2] Add interactive download/install flow with disk space check and retry guidance in src/services/carla_detect.py.
+- [X] T019 [US2] Wire CLI to carla_detect results (prompt install, pass install path into startup) in src/cli/remote_carla_start.py.
 
 Checkpoint: User Story 2 independently enables first-time setup with guided install.
 
@@ -75,12 +75,12 @@ Independent Test: Start CARLA in tmux, detach, reconnect, attach or stop; verify
 
 ### Tests for User Story 3
 
-- [ ] T020 [P] [US3] Extend unit tests for tmux session lifecycle (start/detect/attach/stop) in tests/unit/test_carla_start.py.
+- [X] T020 [P] [US3] Extend unit tests for tmux session lifecycle (start/detect/attach/stop) in tests/unit/test_carla_start.py.
 
 ### Implementation for User Story 3
 
-- [ ] T021 [US3] Implement tmux-based persistent session management with status checks in src/services/carla_start.py.
-- [ ] T022 [US3] Update CLI to reuse/attach/restart or stop persistent sessions with clear prompts in src/cli/remote_carla_start.py.
+- [X] T021 [US3] Implement tmux-based persistent session management with status checks in src/services/carla_start.py.
+- [X] T022 [US3] Update CLI to reuse/attach/restart or stop persistent sessions with clear prompts in src/cli/remote_carla_start.py.
 
 Checkpoint: User Story 3 independently delivers persistent session controls.
 
@@ -88,8 +88,8 @@ Checkpoint: User Story 3 independently delivers persistent session controls.
 
 ## Phase 6: Polish & Cross-Cutting Concerns
 
-- [ ] T023 Add updated quickstart instructions covering install flow, tmux usage, and test commands in specs/001-ssh-carla-startup/quickstart.md.
-- [ ] T024 Add troubleshooting and security notes (no credential persistence, port conflict guidance) to README.md.
+- [X] T023 Add updated quickstart instructions covering install flow, tmux usage, and test commands in specs/001-ssh-carla-startup/quickstart.md.
+- [X] T024 Add troubleshooting and security notes (no credential persistence, port conflict guidance) to README.md.
 
 ---
 
