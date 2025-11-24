@@ -1,0 +1,35 @@
+{
+  "name": "remote-carla-start",
+  "version": "0.1.0",
+  "description": "Interactive startup of remote CARLA server via SSH with port forwarding and optional installation.",
+  "invocation": "python -m src.cli.remote_carla_start",
+  "interactive": true,
+  "steps": [
+    {"order": 1, "prompt": "Enter remote host (IP or hostname):", "type": "string", "secret": false},
+    {"order": 2, "prompt": "Enter SSH username:", "type": "string", "secret": false},
+    {"order": 3, "prompt": "Is CARLA already installed? (y/n):", "type": "choice", "options": ["y","n"], "secret": false},
+    {"order": 4, "prompt": "If not installed, proceed with download? (y/n):", "type": "choice", "options": ["y","n"], "secret": false},
+    {"order": 5, "prompt": "Use persistent tmux session? (y/n):", "type": "choice", "options": ["y","n"], "secret": false}
+  ],
+  "security": {
+    "persists_credentials": false,
+    "writes_config": false,
+    "env_var_usage": "SSH_AUTH_SOCK optionally for agent forwarding",
+    "risk_controls": [
+      "Never stores host/user to disk",
+      "All inputs remain in-memory",
+      "Ctrl+C handler ensures cleanup"
+    ]
+  },
+  "outputs": {
+    "format": "json-lines",
+    "fields": ["event","timestamp","level","details"],
+    "success_condition": "CARLA server reachable on forwarded ports"
+  },
+  "errors": [
+    {"code": "SSH_CONN_FAIL", "retryable": true, "message": "SSH connection failed"},
+    {"code": "CARLA_START_TIMEOUT", "retryable": true, "message": "CARLA did not start within timeout"},
+    {"code": "PORT_CONFLICT", "retryable": true, "message": "Local port conflict detected"},
+    {"code": "INSTALL_ABORTED", "retryable": false, "message": "User declined installation"}
+  ]
+}
